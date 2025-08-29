@@ -1,0 +1,66 @@
+.topbar {
+  background: var(--marquee-bg);
+  height: var(--marquee-height);
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #111;
+  z-index: 1000;
+}
+
+.fixed { position: fixed; top: 0; left: 0; right: 0; }
+
+.viewport {
+  overflow: hidden;
+  width: 100%;
+  padding: 0 var(--marquee-padding-x); /* respiro nas laterais */
+  box-sizing: border-box;
+
+  /* fade lateral opcional */
+  mask-image: linear-gradient(to right, transparent 0, black 32px, black calc(100% - 32px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 32px, black calc(100% - 32px), transparent 100%);
+}
+
+/* trilho movido por JS (sem keyframes) */
+.track {
+  display: flex;                 /* duas listas lado a lado */
+  gap: var(--marquee-gap);       /* gap entre A e B para simetria */
+  will-change: transform;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--marquee-gap);
+  margin: 0;
+  padding: 0;                    /* sem padding para não criar “buracos” */
+  white-space: nowrap;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: var(--marquee-size);
+  color: var(--marquee-color);
+}
+
+/* chips com colchetes */
+.item { position: relative; padding: 4px 8px; }
+.item::before { content: "["; margin-right: 6px; opacity: .9; }
+.item::after  { content: "]"; margin-left:  6px; opacity: .9; }
+
+/* medidor invisível */
+.measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+  left: -9999px;
+  top: -9999px;
+  list-style: none;
+  display: flex;
+  gap: var(--marquee-gap);
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: var(--marquee-size);
+}

@@ -1,0 +1,42 @@
+.wrap{
+  /* centraliza no topo do retângulo */
+  display:flex;
+  justify-content:center;
+  margin-top:-28px;          /* levanta um pouco para colar no topo do cartão */
+  margin-bottom:32px;        /* respiro abaixo do menu */
+}
+
+.menu{
+  background:#181818;
+  border-radius:9999px;
+  padding:10px 18px;
+  display:flex;
+  gap:24px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.35), 0 0 0 2px rgba(0,0,0,.2) inset;
+}
+
+.link{
+  text-decoration:none;
+  font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight:600;
+  font-size:16px;
+  color:#FCF6EB;
+  padding:8px 14px;
+  border-radius:9999px;
+  line-height:1;
+  transition: background .15s ease, color .15s ease, transform .08s ease;
+}
+
+.link:hover{ transform: translateY(-1px); }
+
+.active{
+  background:#2a2a2a;
+  /* se quiser highlight sutil: */
+  /* color:#F5C518; */
+}
+
+@media (max-width: 768px) {
+  .topMenu {
+    display: none;
+  }
+}

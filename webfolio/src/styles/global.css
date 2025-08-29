@@ -1,0 +1,64 @@
+:root {
+  /* alturas fixas */
+  --header-height: 48px;
+
+  /* cores do tema */
+  --page-bg: #222323;      /* fundo fora do cartão (igual ao mock) */
+  --content-bg: #FCF6EB;   /* creme do card (um pouco mais “vivo” que #f7f1e6) */
+  --ink: #111111;          /* texto principal (alto contraste) */
+  --ink-2: #222323;        /* texto secundário / elementos decorativos */
+  --accent: #F5C518;       /* faixa do marquee */
+
+  /* tipografia */
+  --font-sans: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-heading: "Murs Gothic", var(--font-sans);
+
+  /* raios e espaçamentos */
+  --radius: 28px;
+}
+
+
+/* carregar sua fonte personalizada */
+@font-face {
+  font-family: "Murs Gothic";
+  src: url("../assets/fonts/MursGothic-WideDark.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* resetzinho que salva vidas */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #root { height: 100%; width: 100%; }
+
+#root { max-width: none; }
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--ink);                 /* texto padrão com contraste no creme */
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+
+/* imagens responsivas por padrão */
+img { max-width: 100%; height: auto; display: block; }
+
+/* foco visível acessível */
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* movimento reduzido respeita preferências do usuário */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* classe para aplicar a fonte de título quando quiser */
+.heading-font { font-family: var(--font-heading); }
+

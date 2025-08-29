@@ -1,0 +1,233 @@
+/* ====== DESKTOP (mantém seu layout atual) ====== */
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(520px, 640px) 1fr;
+  align-items: stretch;
+  gap: 32px;
+  height: 100%;
+  padding: 60px 0;
+  margin-top: -40px;
+}
+
+/* esquerda sempre no topo */
+.textBlock{
+  grid-column: 1;
+  align-self: start;
+  justify-self: start;
+  max-width: 900px;
+  padding-left: 52px;
+  padding-top: 15%;
+  z-index: 2;
+}
+
+/* direita sempre no rodapé e colada à direita */
+.imageBlock{
+  grid-column: 2;
+  align-self: end;
+  justify-self: end;
+  position: relative;
+  z-index: 1;
+}
+
+/* overlay DESKTOP (mantém a sua overlay antiga via App.tsx) */
+.pcWrapper {
+  position: absolute;
+  right: -28px;
+  bottom: 680px;
+  width: clamp(400px, 30vw, 680px);
+  z-index: 3;
+  pointer-events: auto;
+}
+
+/* imagens empilhadas (hover desktop) */
+.pcImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity .25s ease;
+}
+.pcImgHover { opacity: 0; }
+.pcWrapper:hover .pcImg { opacity: 1; }
+.pcWrapper:hover .pcImgHover { opacity: 1; }
+
+/* Título / Subtítulo */
+.title {
+  font-family: var(--font-heading);
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 0.98;
+  margin: 0 0 8px 0;
+  color: #111;
+  font-style: normal;
+}
+.subtitle {
+  font-family: "Montserrat", var(--font-sans);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 0;
+  color: #222;
+  padding-left: 2px;
+  max-width: 540px;
+}
+
+/* estrela atrás do & */
+.amp {
+  position: relative;
+  display: inline;
+  z-index: 1;
+}
+.amp::before {
+  content: "";
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  transform: translateX(-50%);
+  background: url("/src/assets/star 1.svg") no-repeat center/contain;
+  z-index: -1;
+}
+
+/* nome gigante decorativo (DESKTOP: horizontal cortado) */
+.bigName {
+  position: absolute;
+  left: -20px;
+  bottom: -285px;                 /* ajusta “mais para baixo” no desktop */
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(84px, 8vw, 160px);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: #222323;
+  opacity: 0.95;
+  z-index: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* PC renderizado na .overlay do PageShell (não é recortado) */
+.pcFloat {
+  position: absolute;
+  right: -28px;
+  bottom: -50px;
+  width: clamp(380px, 32vw, 640px);
+  height: auto;
+  display: block;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ====== MOBILE (<= 768px) ====== */
+@media (max-width: 768px){
+  .hero{
+    min-height: clamp(560px, 72dvh, 780px); /* novo */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    /* folga embaixo para o PC centralizado “vazar” */
+    padding: 24px 20px 110px;
+    margin-top: 0;
+    position: relative;
+  }
+
+  .textBlock{
+    max-width: none;
+    padding: 30px 0 0 0; /* mantém o espaçamento no topo */
+    text-align: left;
+    z-index: 2;          /* fica acima do bigName */
+    position: relative;
+  }
+
+  .title{
+    font-size: clamp(36px, 9.5vw, 44px);
+    line-height: 1.06;
+    margin: 0 0 10px 0;
+    color: var(--ink);
+  }
+
+  .subtitle{
+    font-size: clamp(16px, 4.2vw, 18px);
+    line-height: 1.45;
+    max-width: 36ch;
+    color: #222;
+    padding-left: 0;
+  }
+
+  .amp::before{
+    width: 50px;    /* menor que no desktop */
+    height: 50px;
+    top: -15px;     /* ajusta a posição vertical */
+  }
+
+  /* PEDRO FERSI vertical na lateral direita */
+  .bigName{
+    position: absolute;
+    inset: 0;                  /* ocupa toda a área do card */
+    pointer-events: none;
+    /* z-index 1 para ficar sobre o fundo do card,
+       mas abaixo do conteúdo (.textBlock) e do PC na overlay */
+    z-index: 1;
+
+    /* apaga o texto horizontal original (evita “PEDRO” gigante no topo) */
+    font-size: 0 !important;
+    color: transparent !important;
+
+    /* limpa qualquer resquício antigo */
+    transform: none !important;
+    writing-mode: initial !important;
+  }
+
+   .bigName::after{
+    content: "PEDRO FERSI";
+    position: absolute;
+
+    /* âncora mais segura: centro vertical da lateral direita */
+    top: 100%;
+    right: calc(-8px - max(0px, 420px - 100svw) * 0.08);                      /* -10/-14 ajusta o “corte” */
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right center;
+
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(34px, 10.5vh, 52px);
+    letter-spacing: .04em;
+    line-height: 1;
+    color: #222323;
+    opacity: .95;
+    white-space: nowrap;
+
+    /* garante que o pseudo-elemento fique visível */
+    z-index: 1;
+  }
+}
+
+
+/* ===== micro-ajustes para telas estreitas/baixas ===== */
+@media (max-width: 420px), (max-height: 540px){
+  .bigName::after{
+    right: -10px;
+    font-size: clamp(32px, 10vh, 48px);
+  }
+}
+
+/* iPhone 14 Pro Max / telas grandes (~430px) */
+@media (max-width: 440px){
+  .bigName::after{ right: -6px; }
+}
+
+/* iPhone 12/13/14 Pro (~390px) */
+@media (max-width: 400px){
+  .bigName::after{ right: -6px; }
+}
+
+/* iPhone SE / telas bem estreitas (~375px) */
+@media (max-width: 380px){
+  .bigName::after{ right: -14px; }
+}
+
+
