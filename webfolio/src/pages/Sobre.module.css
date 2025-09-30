@@ -1,0 +1,138 @@
+/* ===== Container Geral ===== */
+.wrap {
+  position: relative;
+  padding: clamp(12px, 3vw, 24px);
+}
+
+/* ===== Container externo (sem clipping) ===== */
+.panel {
+   position: relative;
+  margin: 0 auto;
+  width: min(100%, 1515px);
+}
+
+/* ===== Painel Azul (clipping aqui) ===== */
+.panelBg {
+  position: relative;
+  background: #2c69d1;
+  border-radius: 28px;
+  padding: clamp(16px, 2vw, 32px); /* Reduza aqui para diminuir altura e largura */
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: clamp(16px, 2vw, 32px);     /* Opcional: diminua o espaço interno */
+  align-items: center;
+  box-shadow: 0 1px 0 rgba(0,0,0,.08) inset;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ===== Círculo Magenta Central ===== */
+.panelBg::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(120px, 14vw, 3000px);   /* <-- diminua estes valores */
+  height: clamp(120px, 14vw, 300px);  /* <-- diminua estes valores */
+  border-radius: 50%;
+  background: #D82572;
+  z-index: 0;
+}
+
+/* ===== Conteúdo do Painel ===== */
+.media,
+.copy {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Imagem (controle real) ===== */
+.panelBg .media > img {
+  width: clamp(180px, 28vw, 300px);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,.25));
+}
+
+/* Mantém só o filtro globalmente, sem travar largura */
+.media {
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+.media img {
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,.25));
+}
+
+/* ===== Texto ===== */
+.copy {
+  color: #f5f7ff;
+  font-family: 'Montserrat', var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(12px, 1vw, 16px); /* <-- diminua aqui */
+  line-height: 1.7;
+  justify-self: end;
+  margin-top: 48px;
+  margin-bottom: 24px;
+  margin-right: 24px;
+}
+.copy p { margin: 0; }
+.copy p + p { margin-top: 32px; }
+
+/* ===== Título ===== */
+.title {
+  margin: 0 0 -5px 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(40px, 7vw, 96px); /* <-- aumente aqui */
+  line-height: 1.02;
+  color: #fff;
+}
+.title span:first-child { text-transform: lowercase; }
+.dot { color: #fff; }
+
+/* ===== Mãos decorativas (fora do clipping) ===== */
+.hands1 {
+  position: absolute;
+  top: -80px;        /* ajuste conforme necessário */
+  right: -60px;      /* ajuste conforme necessário */
+  width: 225px;       /* ajuste o tamanho conforme desejar */
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hands2 {
+  position: absolute;
+  bottom: -60px;     /* ajuste conforme necessário */
+  left: -85px;       /* ajuste conforme necessário */
+  width: 300px;       /* ajuste o tamanho conforme desejar */
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ===== Mobile ===== */
+/* @media (max-width: 768px) {
+  .panelBg {
+    grid-template-columns: 1fr;       
+    width: min(100%, 720px);
+    border-radius: 24px;
+    padding: clamp(18px, 5vw, 28px);
+    gap: clamp(16px, 5vw, 24px);
+  }
+
+  .panelBg .media > img {
+    width: clamp(160px, 55vw, 240px);
+  }
+
+  .copy {
+    font-size: clamp(14px, 3.8vw, 15px);
+    line-height: 1.55;
+  }
+
+  .title {
+    font-size: clamp(26px, 8vw, 34px);
+    margin-bottom: 8px;
+  }
+} */

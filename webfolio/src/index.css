@@ -13,6 +13,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* html {
+  scroll-behavior: smooth;
+} */
+
+/* compensa o header fixo; ajuste se precisar */
+section[id] {
+  scroll-margin-top: calc(var(--header-height, 48px) + 12px);
+}
+
+
 a {
   font-weight: 500;
   color: #646cff;

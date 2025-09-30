@@ -2,6 +2,9 @@
   /* alturas fixas */
   --header-height: 48px;
 
+  /* >>> offset usado na rolagem para não “comer” o topo das seções */
+  --scroll-offset: calc(var(--header-height) + 20px);
+
   /* cores do tema */
   --page-bg: #222323;      /* fundo fora do cartão (igual ao mock) */
   --content-bg: #FCF6EB;   /* creme do card (um pouco mais “vivo” que #f7f1e6) */
@@ -17,7 +20,6 @@
   --radius: 28px;
 }
 
-
 /* carregar sua fonte personalizada */
 @font-face {
   font-family: "Murs Gothic";
@@ -30,23 +32,25 @@
 /* resetzinho que salva vidas */
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-}
+*::after { box-sizing: border-box; }
 
 html, body, #root { height: 100%; width: 100%; }
-
 #root { max-width: none; }
 
 body {
   margin: 0;
   background: var(--page-bg);
-  color: var(--ink);                 /* texto padrão com contraste no creme */
+  color: var(--ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
+/* >>> rolagem suave global (JS do TopMenu respeita prefers-reduced-motion) */
+html { scroll-behavior: smooth; }
+
+/* >>> as âncoras param com respiro abaixo do header */
+#home, #sobre, #trabalhos, #contato { scroll-margin-top: var(--scroll-offset); }
 
 /* imagens responsivas por padrão */
 img { max-width: 100%; height: auto; display: block; }
@@ -57,8 +61,9 @@ img { max-width: 100%; height: auto; display: block; }
 /* movimento reduzido respeita preferências do usuário */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+  /* >>> desliga a rolagem suave quando o usuário prefere menos movimento */
+  html { scroll-behavior: auto; }
 }
 
 /* classe para aplicar a fonte de título quando quiser */
 .heading-font { font-family: var(--font-heading); }
-

@@ -19,6 +19,14 @@
   overflow: visible;                   /* overlay pode “vazar” */
 }
 
+/* Variante sem “cartão creme” (para Sobre/Trabalhos/Contato) */
+.cardNoBg{
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;   /* não recorta decorações (mãos etc.) */
+}
+
+
 /* Cartão interno: ESTE recorta (bordas arredondadas) */
 .card{
   position: relative;
