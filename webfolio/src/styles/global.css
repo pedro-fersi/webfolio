@@ -2,8 +2,11 @@
   /* alturas fixas */
   --header-height: 48px;
 
-  /* >>> offset usado na rolagem para não “comer” o topo das seções */
-  --scroll-offset: calc(var(--header-height) + 20px);
+  /* novo: controla o quanto a seção desce abaixo do topo */
+  --anchor-respiro: 32px; /* teste 32–56px conforme seu gosto */
+
+  /* offset total usado na rolagem */
+  --scroll-offset: calc(var(--header-height) + var(--anchor-respiro));
 
   /* cores do tema */
   --page-bg: #222323;      /* fundo fora do cartão (igual ao mock) */
@@ -47,7 +50,9 @@ body {
 }
 
 /* >>> rolagem suave global (JS do TopMenu respeita prefers-reduced-motion) */
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth;
+scroll-padding-top: var(--scroll-offset); /* 👈 essa linha é a chave */
+}
 
 /* >>> as âncoras param com respiro abaixo do header */
 #home, #sobre, #trabalhos, #contato { scroll-margin-top: var(--scroll-offset); }
